@@ -1,0 +1,82 @@
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    match /users/{userId} {
+      allow get, list: if isSignedIn();
+      allow create: if isOwner(userId);
+      allow update: if isOwner(userId) || (
+        // Match acceptance: only allow partnerUid field update
+        isSignedIn() && 
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['partnerUid'])
+      );
+      allow delete: if isOwner(userId);
+
+      match /notifications/{notifId} {
+        allow get, list: if isOwner(userId);
+        allow update, delete: if isOwner(userId);
+        allow create: if isSignedIn();
+      }
+
+      match /friends/{friendId} {
+        allow read: if isSignedIn();
+        allow write: if isOwner(userId) || (isSignedIn() && request.auth.uid == friendId);
+      }
+    }
+
+    match /usernames/{username} {
+      allow read: if true;
+      allow create: if isSignedIn();
+      allow delete: if isSignedIn();
+    }
+
+    match /friendRequests/{reqId} {
+      allow get, list: if isSignedIn() && (request.auth.uid == resource.data.fromUid || request.auth.uid == resource.data.toUid);
+      allow create: if isSignedIn();
+      allow update, delete: if isSignedIn() && (request.auth.uid == resource.data.fromUid || request.auth.uid == resource.data.toUid);
+    }
+
+    match /loveRequests/{reqId} {
+      allow get, list: if isSignedIn();
+      allow create: if isSignedIn();
+      allow update, delete: if isSignedIn();
+    }
+
+    match /couples/{coupleId} {
+      function isMember() {
+        return isSignedIn() && (
+          coupleId.split('_').hasAny([request.auth.uid]) ||
+          (resource != null && request.auth.uid in resource.data.get('participants', []))
+        );
+      }
+      allow read, write: if isMember();
+      match /{allSubcollections=**} {
+        allow read, write: if isMember();
+      }
+    }
+
+    match /chats/{chatId} {
+      function isChatMember() {
+        return isSignedIn() && (
+          chatId.split('_').hasAny([request.auth.uid]) || 
+          (resource != null && request.auth.uid in resource.data.get('participants', []))
+        );
+      }
+      allow get, list: if isChatMember();
+      allow create: if isSignedIn();
+      allow update: if isChatMember();
+      match /messages/{msgId} {
+        allow read, write: if isSignedIn();
+      }
+    }
+  }
+}

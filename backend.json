@@ -1,0 +1,93 @@
+
+{
+  "entities": {
+    "UserProfile": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "UserProfile",
+      "type": "object",
+      "description": "Represents a user's profile in the application.",
+      "properties": {
+        "id": { "type": "string" },
+        "username": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "tokens": { "type": "number" },
+        "level": { "type": "number" },
+        "totalEarned": { "type": "number" },
+        "partnerUid": { "type": "string" },
+        "avatar": { "type": "string" },
+        "bio": { "type": "string" },
+        "birthDate": { "type": "string", "format": "date" },
+        "gender": { "type": "string" },
+        "showGender": { "type": "boolean" },
+        "showAge": { "type": "boolean" },
+        "showOnlineStatus": { "type": "boolean" },
+        "lastActive": { "type": "string", "format": "date-time" },
+        "receivedBonus": { "type": "boolean" },
+        "mood": { "type": "string" }
+      },
+      "required": ["id", "username", "tokens"]
+    },
+    "LoveCoupon": {
+      "title": "LoveCoupon",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "senderId": { "type": "string" },
+        "status": { "type": "string", "enum": ["available", "redeemed"] },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "redeemedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Favorites": {
+      "title": "Favorites",
+      "type": "object",
+      "properties": {
+        "movie": { "type": "string" },
+        "food": { "type": "string" },
+        "place": { "type": "string" },
+        "activity": { "type": "string" }
+      }
+    },
+    "Notification": {
+      "title": "Notification",
+      "type": "object",
+      "properties": {
+        "type": { "type": "string", "enum": ["like", "comment", "moment_like", "moment_comment", "new_post", "miss_you"] },
+        "fromUid": { "type": "string" },
+        "fromUsername": { "type": "string" },
+        "text": { "type": "string" },
+        "read": { "type": "boolean" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "auth": {
+    "providers": ["password", "anonymous"]
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profiles and basic metadata."
+    },
+    "/users/{userId}/notifications/{notifId}": {
+      "schema": "Notification",
+      "description": "User notifications for various events like miss you signals."
+    },
+    "/couples/{coupleId}/coupons/{couponId}": {
+      "schema": "LoveCoupon",
+      "description": "Digital gifts between partners."
+    },
+    "/couples/{coupleId}/settings/favorites": {
+      "schema": "Favorites",
+      "description": "Shared favorites info."
+    },
+    "/couples/{coupleId}/wall/{postId}": {
+      "schema": { "type": "object" },
+      "description": "Shared wall for couples."
+    },
+    "/couples/{coupleId}/moments/{momentId}": {
+      "schema": { "type": "object" },
+      "description": "Short-lived visual moments for couples."
+    }
+  }
+}

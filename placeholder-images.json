@@ -1,0 +1,70 @@
+{
+  "placeholderImages": [
+    {
+      "id": "trivia-cover",
+      "description": "AI Trivia Challenge Cover",
+      "imageUrl": "https://picsum.photos/seed/trivia-ai-art/600/400",
+      "imageHint": "cyberpunk robot quiz"
+    },
+    {
+      "id": "slot-cover",
+      "description": "Lucky Slot Machine Cover",
+      "imageUrl": "https://picsum.photos/seed/slot-casino-neon/600/400",
+      "imageHint": "neon slot machine"
+    },
+    {
+      "id": "guess-cover",
+      "description": "Number Guessing Game Cover",
+      "imageUrl": "https://picsum.photos/seed/mystery-numbers-dark/600/400",
+      "imageHint": "glowing numbers mystery"
+    },
+    {
+      "id": "memory-cover",
+      "description": "Memory Match Game Cover",
+      "imageUrl": "https://picsum.photos/seed/memory-cards-fantasy/600/400",
+      "imageHint": "magic memory cards"
+    },
+    {
+      "id": "clicker-cover",
+      "description": "Fast Clicker Game Cover",
+      "imageUrl": "https://picsum.photos/seed/speed-click-neon/600/400",
+      "imageHint": "lightning fast finger"
+    },
+    {
+      "id": "on-numara-cover",
+      "description": "Fast On Numara Game Cover",
+      "imageUrl": "https://picsum.photos/seed/lotto-balls-gold/600/400",
+      "imageHint": "golden lottery balls"
+    },
+    {
+      "id": "game-2048-cover",
+      "description": "2048 Puzzle Game Cover",
+      "imageUrl": "https://picsum.photos/seed/2048-blocks-abstract/600/400",
+      "imageHint": "geometric 3d blocks"
+    },
+    {
+      "id": "brain-out-cover",
+      "description": "Brain Out Puzzle Game Cover",
+      "imageUrl": "https://picsum.photos/seed/brain-maze-puzzle/600/400",
+      "imageHint": "glowing human brain"
+    },
+    {
+      "id": "stack-cover",
+      "description": "Stack Tower Game Cover",
+      "imageUrl": "https://picsum.photos/seed/tower-stack-3d/600/400",
+      "imageHint": "falling colored blocks"
+    },
+    {
+      "id": "coffee-cover",
+      "description": "Coffee Fortune Teller Cover",
+      "imageUrl": "https://picsum.photos/seed/coffee-fortune-mystic/600/400",
+      "imageHint": "mystic coffee cup"
+    },
+    {
+      "id": "love-cover",
+      "description": "Romantic Partner Matching Cover",
+      "imageUrl": "https://picsum.photos/seed/romantic-sunset-couple/600/400",
+      "imageHint": "romantic sunset couple"
+    }
+  ]
+}
